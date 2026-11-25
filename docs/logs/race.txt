@@ -1,0 +1,36 @@
+=== HTTP URL Health Checker ===
+Адрес у списку: 5 | таймаут запиту: 5s
+
+--- Рівень 1: послідовна перевірка ---
+  -> https://go.dev: 200 OK (час: 304ms)
+  -> https://github.com: 200 OK (час: 310ms)
+  -> https://httpbin.org/status/404: 404 Not Found (час: 424ms)
+  -> https://httpbin.org/delay/1: 200 OK (час: 1.131s)
+  -> https://invalid-fake-host-test.org: ПОМИЛКА (Get "https://invalid-fake-host-test.org": dial tcp: lookup invalid-fake-host-test.org: no such host)
+  Разом: 5 | 200 OK: 3 | інші статуси: 1 | помилки: 1
+  Час рівня 1: 2.328s
+
+--- Рівень 2: горутини + WaitGroup + Mutex ---
+  Усі горутини завершилися, статистику захищено м'ютексом.
+  Разом: 5 | 200 OK: 3 | інші статуси: 1 | помилки: 1
+  Час рівня 2: 1.415s
+
+--- Рівень 3: збір результатів через канал ---
+  -> https://github.com: 200 OK (час: 229ms)
+  -> https://go.dev: 200 OK (час: 258ms)
+  -> https://httpbin.org/delay/1: 200 OK (час: 1.43s)
+  -> https://httpbin.org/status/404: 404 Not Found (час: 430ms)
+  -> https://invalid-fake-host-test.org: ПОМИЛКА (Get "https://invalid-fake-host-test.org": dial tcp: lookup invalid-fake-host-test.org: no such host)
+
+==========================================
+ПІДСУМКОВИЙ ЗВІТ МОНІТОРИНГУ
+------------------------------------------
+Усього перевірено адрес: 5
+Успішних відповідей (200 OK): 3
+Неуспішних HTTP-статусів: 1
+Мережевих помилок: 1
+------------------------------------------
+Час послідовно (рівень 1): 2.328s
+Час конкурентно (рівень 3): 1.43s
+Прискорення: 1.63x
+==========================================

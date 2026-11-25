@@ -1,0 +1,9 @@
+PS> go test -race -count=1 ./...
+ok  	healthchecker	1.363s
+
+PS> go vet ./...
+
+PS> gofmt -l .
+
+PS> go version
+go version go1.23.4 windows/amd64

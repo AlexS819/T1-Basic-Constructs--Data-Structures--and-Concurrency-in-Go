@@ -1,0 +1,27 @@
+# Бінарники та результати збірки
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+healthchecker
+
+# Тестові бінарники та покриття
+*.test
+*.out
+coverage.html
+coverage.txt
+
+# Тимчасові файли й кеш, які можуть з'явитися під час запуску
+.tmp/
+.gocache/
+.gopath/
+
+# Середовище розробки
+.vscode/
+.idea/
+*.swp
+
+# Файли операційної системи
+.DS_Store
+Thumbs.db
